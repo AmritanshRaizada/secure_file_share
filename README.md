@@ -80,8 +80,6 @@ Set proper CORS policies
 
 Implement rate limiting
 
-Project Structure
-text
 secure_file_share/
 ├── app/               # Application code
 │   ├── models/        # Database models
@@ -91,7 +89,7 @@ secure_file_share/
 │   └── config.py      # Configuration
 ├── tests/             # Test cases
 ├── requirements.txt   # Dependencies
-└── .env               # Environment variables
+└── .env               # Environment variables        # Environment variables
 
 ### Key Sections Included:
 1. **Project Overview** - Brief description
