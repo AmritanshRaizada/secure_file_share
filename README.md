@@ -36,17 +36,18 @@ A REST API for secure file sharing between operation users and client users, bui
    git clone https://github.com/yourusername/secure-file-share.git
    cd secure-file-share
 
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
+   python -m venv venv
+   source venv/bin/activate  # Linux/Mac
 # OR
-venv\Scripts\activate    # Windows
+   venv\Scripts\activate    # Windows
 
-pip install -r requirements.txt
+   pip install -r requirements.txt
 
-cp .env.example .env
+   cp .env.example .env
 # Edit .env with your configuration
 
-uvicorn app.main:app --reload
+   uvicorn app.main:app --reload
+
 API Documentation
 Access interactive docs at:
 
