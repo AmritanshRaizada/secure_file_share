@@ -1,113 +1,88 @@
 # Secure File Sharing System
 
-A REST API for secure file sharing between operation users and client users, built with FastAPI and MongoDB.
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+
+A secure REST API for file sharing between operation users (upload) and client users (download), featuring JWT authentication and encrypted download URLs.
 
 ## Features
 
-- **User Types**:
-  - Operation Users (upload files)
-  - Client Users (download files)
-- **Authentication**: JWT token-based security
-- **File Restrictions**: 
-  - Only `.pptx`, `.docx`, and `.xlsx` files allowed for upload
-- **Secure Downloads**:
-  - Time-limited, encrypted download URLs
-  - Role-based access control
+- **Role-based access control**
+  - 👨‍💼 Operation Users: Upload files (PPTX, DOCX, XLSX only)
+  - 👥 Client Users: Download files, list available files
+- **Secure authentication** with JWT tokens
+- **Email verification** for client users
+- **Encrypted download URLs** with expiration
+- **File type validation** using magic numbers
 
-## Tech Stack
+## Quick Start
 
-- **Backend**: Python 3.10+, FastAPI
-- **Database**: MongoDB
-- **Authentication**: JWT
-- **File Validation**: python-magic
-
-## Setup
-
-### Prerequisites
-
+### 1. Prerequisites
 - Python 3.10+
-- MongoDB (local or Atlas)
-- SMTP server (for email verification - optional)
+- MongoDB instance (local or cloud)
+- (Optional) SMTP server for email verification
 
-### Installation
+### 2. Installation
+```bash
+# Clone repository
+git clone https://github.com/yourusername/secure-file-share.git
+cd secure-file-share
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/secure-file-share.git
-   cd secure-file-share
+# Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# OR
+venv\Scripts\activate    # Windows
 
-   python -m venv venv
-   source venv/bin/activate  # Linux/Mac
-   # OR
-   venv\Scripts\activate    # Windows
+# Install dependencies
+pip install -r requirements.txt
 
-   pip install -r requirements.txt
+cp .env.example .env
 
-   cp .env.example .env
-   # Edit .env with your configuration
+MONGODB_URL=mongodb://localhost:27017
+DATABASE_NAME=secure_file_share
+SECRET_KEY=your-very-secure-key-generate-with-openssl-rand-hex-32
 
-   uvicorn app.main:app --reload
+# Email settings (optional)
+SMTP_SERVER=
+SMTP_PORT=
+SMTP_USERNAME=
+SMTP_PASSWORD=
+FROM_EMAIL=
 
-API Documentation
-Access interactive docs at:
+uvicorn app.main:app --reload
 
-Swagger UI: http://localhost:8000/docs
+Access the API docs at:
+🔗 http://localhost:8000/docs
 
-Redoc: http://localhost:8000/redoc
+API Endpoints
+Method	Endpoint	Description	Access
+POST	/auth/signup	Client user registration	Public
+GET	/auth/verify-email	Email verification	Public
+POST	/auth/login	User login	Public
+POST	/files/upload	Upload files	Ops User
+GET	/files/download/{file_id}	Generate download link	Client User
+GET	/files/download	Download file	Valid Token
+GET	/files/list	List available files	Client User
 
-Environment Variables
-Variable	Required	Description
-MONGODB_URL	Yes	MongoDB connection string
-DATABASE_NAME	Yes	Database name
-SECRET_KEY	Yes	JWT secret key
-ALGORITHM	No	JWT algorithm (default: HS256)
-ACCESS_TOKEN_EXPIRE_MINUTES	No	Token expiry (default: 30)
-Email-related variables	No	Required for email verification
-Testing
-Run tests with:
-
-bash
 pytest
-Deployment
-Production Recommendations:
-Use Gunicorn with Uvicorn workers:
 
-bash
 gunicorn -w 4 -k uvicorn.workers.UvicornWorker app.main:app
-Configure HTTPS
 
-Set proper CORS policies
-
-Implement rate limiting
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+ALGORITHM=HS256
+# Add HTTPS configuration
 
 secure_file_share/
-├── app/               # Application code
-│   ├── models/        # Database models
+├── app/
+│   ├── models/        # MongoDB models
+│   ├── routes/        # API endpoints
 │   ├── schemas/       # Pydantic models
 │   ├── utils/         # Helper functions
-│   ├── routes/        # API endpoints
-│   └── config.py      # Configuration
+│   ├── config.py      # App configuration
+│   └── main.py       # FastAPI app
 ├── tests/             # Test cases
+├── .env.example       # Env template
 ├── requirements.txt   # Dependencies
-└── .env               # Environment variables        # Environment variables
-
-### Key Sections Included:
-1. **Project Overview** - Brief description
-2. **Features** - Core functionality
-3. **Setup Instructions** - Step-by-step installation
-4. **API Documentation** - How to access docs
-5. **Configuration** - Environment variables
-6. **Testing** - How to run tests
-7. **Deployment** - Production recommendations
-8. **Project Structure** - Directory layout
-
-### Customization Tips:
-1. Replace `yourusername` with your actual GitHub username
-2. Add your license file if not using MIT
-3. Include any additional deployment instructions specific to your setup
-4. Add contributor guidelines if it's an open-source project
-
-Would you like me to add any specific additional sections like:
-- API endpoint examples?
-- Screenshots of the documentation interface?
-- Detailed contributor guidelines?
+└── README.md          # This file
