@@ -38,13 +38,13 @@ A REST API for secure file sharing between operation users and client users, bui
 
    python -m venv venv
    source venv/bin/activate  # Linux/Mac
-# OR
+   # OR
    venv\Scripts\activate    # Windows
 
    pip install -r requirements.txt
 
    cp .env.example .env
-# Edit .env with your configuration
+   # Edit .env with your configuration
 
    uvicorn app.main:app --reload
 
