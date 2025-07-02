@@ -85,4 +85,9 @@ secure_file_share/
 ├── tests/             # Test cases
 ├── .env.example       # Env template
 ├── requirements.txt   # Dependencies
-└── README.md          # This file
+└── README.md          # This file 
+```
+License
+MIT License © 2023 Amritansh Raizada
+
+
