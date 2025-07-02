@@ -88,6 +88,6 @@ secure_file_share/
 └── README.md          # This file 
 ```
 License
-MIT License © 2023 Amritansh Raizada
+Amritansh Raizada
 
 
